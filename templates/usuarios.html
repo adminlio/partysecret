@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Usuarios Registrados</title>
+</head>
+<body>
+    <h1>Usuarios registrados</h1>
+    <table border="1" cellpadding="5">
+        <tr>
+            <th>Usuario</th>
+            <th>Hash de Contraseña</th>
+            <th>Acciones</th>
+        </tr>
+        {% for usuario, hash in usuarios.items() %}
+        <tr>
+            <td>{{ usuario }}</td>
+            <td>{{ hash }}</td>
+            <td>
+                {% if usuario != "admin" %}
+                <form method="POST" style="display:inline;">
+                    <input type="hidden" name="borrar" value="{{ usuario }}">
+                    <button type="submit" onclick="return confirm('¿Seguro que quieres eliminar {{ usuario }}?')">
+                        ❌ Eliminar
+                    </button>
+                </form>
+                {% else %}
+                (No se puede eliminar admin)
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <br>
+    <a href="/">Volver al inicio</a>
+</body>
+</html>
